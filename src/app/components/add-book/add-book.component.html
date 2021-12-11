@@ -1,0 +1,53 @@
+<mat-toolbar> ADD A NEW BOOK </mat-toolbar>
+
+<div class="add-book-form">
+    <a [routerLink]="['/books']">Back</a>
+    <form (submit)="submitAdd()" #myForm="ngForm">
+      <mat-form-field class="full-width">
+        <input mdInput placeholder="Book Title" [(ngModel)]="title" name="title" required >
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input mdInput placeholder="Book Author" [(ngModel)]="author" name="author" required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input mdInput placeholder="Book Price" type="number" [(ngModel)]="price" name="price" required>
+      </mat-form-field>
+
+      <table class="full-width" cellspacing="10px;">
+          <tr>
+            <td>
+                <mat-form-field class="full-width">
+                    <input mdInput [matDatepicker]="dateadded" placeholder="Date Added ">
+                    <button mdSuffix></button>
+                  </mat-form-field>
+                  <mat-datepicker #dateadded (selectedChanged)="($event)"></mat-datepicker>
+            </td>
+            <td>
+                <mat-form-field class="full-width" >
+                    <input mdInput [matDatepicker]="dateread" placeholder="Date Read " >
+                    <button mdSuffix></button>
+                  </mat-form-field>
+                  <mat-datepicker #dateread (selectedChanged)="($event)"></mat-datepicker>
+            </td>
+          </tr>
+      </table>
+
+      <div *ngIf="isRead">
+          <mat-form-field class="full-width">
+              <textarea mdInput rows="5" placeholder="Book Description" [(ngModel)]="description" name="description" ></textarea>
+            </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input mdInput placeholder="Book Rate (1-5)" min="1" max="5" step="0.1" type="number" [(ngModel)]="rate" name="rate">
+          </mat-form-field>
+      </div>
+
+      <mat-form-field class="third-width">
+          <input mdInput placeholder="Image Url (enter image URL)" [(ngModel)]="imageUrl" name="imageUrl" required>
+      </mat-form-field><br>
+      <img src="{{imageUrl}}" alt="{{title}}">
+      <hr>
+      <button mat-raised-button value="submit" [disabled]="!myForm.form.valid"> Create Book </button>
+    </form>
+</div>
